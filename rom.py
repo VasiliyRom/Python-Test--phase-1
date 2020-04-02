@@ -33,7 +33,7 @@ print(x / y)
 print(x * y)
 
 print(x % y)
-print(x // y)
+print(x // y) #цілочисельне ділення
 
 print(f'Sum: {x} + {y} = {x+y}')
 print(f'Ext: {x} - {y} = {x-y}')
