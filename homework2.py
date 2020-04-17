@@ -14,7 +14,7 @@ print(pattern.format(name='Василь', last_name='Романюк', msg='Пр�
 
 
 pattern = '{Романюк}, {Василь}, {Привіт}'
-print(pattern.format(1,2))
+print(pattern.format(3,2,1))
 
 # Task 3
 a, b = 3.2, 5.6
