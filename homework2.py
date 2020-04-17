@@ -12,10 +12,6 @@ print(f'Привіт {name} {last_name}')
 pattern = '{msg} {name} {last_name}'
 print(pattern.format(name='Василь', last_name='Романюк', msg='Привіт'))
 
-
-pattern = '{Романюк}, {Василь}, {Привіт}'
-print(pattern.format(3,2,1))
-
 # Task 3
 a, b = 3.2, 5.6
 print(a+b)
