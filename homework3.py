@@ -1,5 +1,6 @@
 #Task 1
 str = input('Введіть слово: ')
+str = str.strip(' ')
 if len(str) > 2:
     print(f'{str[:2]}{str[-2:]}')
 elif len(str) == 2:
