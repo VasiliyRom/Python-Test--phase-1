@@ -136,3 +136,129 @@ while True:
         break
     else:
         print(f'{operator} - неправильний знак')
+
+
+
+
+
+
+#######  ЗАВДАННЯ З ЗІРОЧКОЮ
+
+name = input('Введіть Ім\'я: ')
+name = name.strip(' ')
+menu = 1
+print(f'''\n{name.capitalize()}, калькулятор може виконувати наступні дії:
+Додавання___________________________(+)
+Віднімання__________________________(-)
+Множення____________________________(*)
+Ділення_____________________________(/)
+Ділення націло______________________(//)
+Остача від цілочисельного ділення___(%)
+Піднести число в степінь____________(**)
+Округлити число_____________________(round)
+Піднести число в квадрат____________(x^2)
+Випадкове число від x до y)_________(abc)
+Конвертер валют_____________________(con)
+Вийти з програми____________________(exit)
+
+Приклад: 257 + 26\n''')
+
+
+
+while True: 
+    mess = input()
+    
+    if mess == 'exit' or mess == 'Exit' or mess == 'EXIT' or mess == 'q':
+        print(f'До побачення, {name.capitalize()}!')
+        break
+        
+    elif mess.find('+') != -1:
+        s = mess.split('+')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:
+            print(f'{x} + {y} = {float(x) + float(y)}')
+            
+    elif mess.find('-') != -1:
+        s = mess.split('-')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:
+            print(f'{x} - {y} = {float(x) - float(y)}')
+
+    elif mess.find('*') != -1:
+        s = mess.split('*')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:
+            print(f'{x} * {y} = {float(x) * float(y)}')
+            
+    elif mess.find('/') != -1:
+        s = mess.split('/')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:
+            if y == 0:
+                print('На нуль не ділиться') 
+            else:
+                print(f'{x} / {y} = {float(x) / float(y)}')
+            
+    elif mess.find('//') != -1:
+        s = mess.split('//')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:
+            if y == 0:
+                print('На нуль не ділиться') 
+            else:
+                print(f'{x} // {y} = {int(x) // int(y)}')      
+            
+    elif mess.find('%') != -1:
+        s = mess.split('%')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:
+            print(f'{x} % {y} = {int(x) % int(y)}')
+            
+    elif mess.find('**') != -1:
+        s = mess.split('**')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:       
+            print(f'{x} ^ {y} = {float(x) ** int(y)}')
+            
+    elif mess.find('round') != -1:
+        s = mess.split('round')
+        x=s[0]
+        y=s[1] 
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:       
+            print(f'{x}, {y} знаків після коми = {round(float(x), int(y))}')     
+            
+    elif mess.find('x^2') != -1:
+        s = mess.split('x^2')
+        x=s[0]
+        if x.isalpha() or y.isalpha():
+            print(f'{x} або {y} не є числом.')
+        else:
+            print(f'{x} в квадраті = {int(x) * int(x)}')        
+            
+           
+            
+    else:
+        print(f'{mess} - неправильний знак')
