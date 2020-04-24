@@ -36,14 +36,17 @@ while True:
     i += 1
     if i == 101:
         break
-print(a)
-print()
-x=0
+    
+i = 0
 while True:
-    if x in a and x & 7 == 0 and x % 5 != 0:
-        b.append(x)
-        x += 1
+    item = a[i]
+    if item % 7 == 0 and item % 5 != 0:
+        b.append(item)
+    i += 1
+    if i >= len(a):
+        break
 print(b)
+
 
 
 
