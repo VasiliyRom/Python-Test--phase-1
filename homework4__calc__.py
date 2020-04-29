@@ -261,3 +261,200 @@ while True:
             
     else:
         print(f'{mess} - неправильний знак')
+
+
+
+
+#VER.2.0
+
+#name = input('Введіть Ім\'я: ')
+#name = name.strip(' ')
+function = ['+', '-', '*', '/']
+oper = None
+
+symbols = ['!','@','#','$','"','№',';',':','\'',' ']
+oper_dict = {
+    '+': '{x} + {y} = {result}',
+    '-': '{x} - {y} = {result}',
+    '*': '{x} * {y} = {result}',
+    '/': '{x} / {y} = {result}',
+    }
+
+
+
+func_text = print(f'''\nname, калькулятор може виконувати наступні дії:
+Додавання___________________________(+)
+Віднімання__________________________(-)
+Множення____________________________(*)
+Ділення_____________________________(/)
+Ділення націло______________________(//)
+Остача від цілочисельного ділення___(%)
+Піднести число в степінь____________(**)
+Округлити число_____________________(round)
+Піднести число в квадрат____________(x^2)
+Випадкове число від x до y)_________(abc)
+Конвертер валют_____________________(con)
+Вийти з програми____________________(exit)
+
+Приклад: 257 + 26\n''')
+
+    
+while True:
+    mess = input()
+    
+    for symbol in symbols:
+        if symbol in mess:
+            mess = mess.replace(symbol,'')
+             
+    if mess == 'exit' or mess == 'Exit' or mess == 'EXIT' or mess == 'q':
+        print(f'До побачення!')
+        break  
+            
+    for i in function:
+        if i in mess: 
+            oper = i
+        elif not i in mess:
+            print(f'Програма не знайшла функцію!')
+            
+    
+    
+    s = mess.split(oper)    
+    x=s[0]
+    y=s[1]
+ 
+    if x.isdigit() and y.isdigit():
+        x=float(s[0])
+        y=float(s[1])
+    else:    
+        print(f'{x} або {y} не є числом.')
+
+    if oper == '+':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x+y))
+    elif oper == '-':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x-y)) 
+    elif oper == '*':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x*y))      
+    elif oper == '/':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x/y)) 
+
+
+
+#VER.2.1
+
+#name = input('Введіть Ім\'я: ')
+#name = name.strip(' ')
+function = ['+', '-', '*', '/','//', '%', '^', 'round']
+oper = None
+dot = '.'
+symbols = ['!','@','#','$','"','№',';',':','\'',' ']
+oper_dict = {
+    '+': '{x} {oper} {y} = {result}',
+    '-': '{x} - {y} = {result}',
+    '*': '{x} * {y} = {result}',
+    '/': '{x} / {y} = {result}',
+    '//': '{x} // {y} = {result}',
+    '%': '{x} В {y} степінь = {result}',
+    '^':  '{x}, {y} знаків після коми = {result}'   
+    }
+
+
+
+func_text = print(f'''\nname, калькулятор може виконувати наступні дії:
+Додавання___________________________(+)
+Віднімання__________________________(-)
+Множення____________________________(*)
+Ділення_____________________________(/)
+Ділення націло______________________(//)
+Остача від цілочисельного ділення___(%)
+Піднести число в степінь____________(**)
+Округлити число_____________________(round)
+Піднести число в квадрат____________(x^2)
+Випадкове число від x до y)_________(abc)
+Конвертер валют_____________________(con)
+Вийти з програми____________________(exit)
+
+Приклад: 257 + 26\n''')
+
+'''def convert(user_input, support = True):
+    if support == True:
+        
+        return int(user_input)
+    if support == None:
+        return float(user_input)
+        
+#if type(x) == int and type(y) == int'''
+    
+
+    
+while True:
+    mess = input()
+    
+    for symbol in symbols:
+        if symbol in mess:
+            mess = mess.replace(symbol,'')
+             
+    if mess == 'exit' or mess == 'Exit' or mess == 'EXIT' or mess == 'q':
+        print(f'До побачення!')
+        break  
+            
+    for i in function:
+        if i in mess: 
+            oper = i
+        
+    if oper == None:
+            print(f'Програма не знайшла функцію!')
+            continue
+    
+    s = mess.split(oper)    
+    x=s[0]
+    y=s[1]
+ 
+    if x.isalpha() or y.isalpha():
+        print(f'{x} або {y} не є числом.')
+        continue
+        
+    else:    
+        x=s[0]
+        y=s[1]
+####################################################       
+    for i in dot:
+        if i in x: 
+            x = float(x)
+        else:
+            x= int(x)
+    for i in dot:        
+        if i in y: 
+            y = float(y)            
+        else:
+            y= int(y)
+    if type(x) == int and type(y) == int:
+        x=int(x)
+        y=int(y)
+    if type(x) == int and type(y) == float:
+        x=float(x)
+        y=float(y)
+    if type(x) == float and type(y) == int:
+        x=float(x)
+        y=float(y)  
+####################################################    
+        
+        
+    if oper == '+':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x+y))
+    elif oper == '-':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x-y)) 
+    elif oper == '*':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x*y))      
+    elif oper == '/':
+        if y == 0:
+            print('На нуль не ділиться')
+        else:
+            print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x/y)) 
+    elif oper == '//':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x//y))   
+    elif oper == '%':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x%y))        
+    elif oper == '^':
+        print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=x^y))         
+   #elif oper == 'round':
+       # print(oper_dict.get(oper).format(x=x, y=y, oper=oper, result=round(float(x), int(y))
