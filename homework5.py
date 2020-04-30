@@ -12,17 +12,20 @@ print(max(result))
 import random
 collection_1 = []
 collection_2 = []
-collection_3 = []
-result = []
+result_coll = []
+
 while len(collection_1) != 10 and (collection_2) != 10: 
     numbers = random.randint(1,10)
     collection_1.append(numbers)
     numbers1 = random.randint(1,10)
     collection_2.append(numbers1)
 
-collection_3 = collection_1 + collection_2
-result = list(set(collection_3))
-print('Результат -', result)
+result_coll = list(set(collection_1) and set(collection_2))
+print(collection_1)
+print(collection_2)
+
+print('Результат -', result_coll)
+
 
 
 
