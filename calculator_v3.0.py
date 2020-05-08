@@ -57,8 +57,8 @@ while True:
             print(f'{x} не є числом!')
             continue
         else:    
-            x=dot(x)  
-            comand(x, y, oper)
+            x = dot(x)
+            comand(x, y, oper, minus_left, minus_right)
             continue
     
     #############        
@@ -89,4 +89,4 @@ while True:
         x = -x
     if minus_right == 1:    
         y = -y     
-    comand(x, y, oper)
+    comand(x, y, oper, minus_left, minus_right)

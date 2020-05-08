@@ -1,18 +1,19 @@
 function = ['+', '-', '*', '/','//', '%', '^', 'rnd', 'v', 'rand', '$']
 symbols = ['!', '@', '#', '"', '№', ';', ':', '\'', ' ']
 
-def repl(mess):
+def repl(mess):########
+    clean_mess = mess
     for symbol in symbols:
-        if symbol in mess:
-            return mess.replace(symbol,'')
+        if symbol in clean_mess:
+            clean_mess = clean_mess.replace(symbol, '')
+    return clean_mess
 
 def dot(param):
     dot = '.'
-    for i in dot:
-        if i in param: 
-            return float(param)
-        else:
-            return int(param)
+
+    if dot in param: 
+        return float(param)
+    return int(param)########
 
 def operator(message):
     for i in function: 

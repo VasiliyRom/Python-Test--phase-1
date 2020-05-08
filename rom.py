@@ -1,16 +1,14 @@
-items_list = [64, 128, 256]
-
-def oops():  
-    i = items_list[4]
-    raise KeyError
-    return i
-    
-def catch():
-    try:
-        x = oops1()
-        print(x)
-    except IndexError:
-        print('Індекс неіснує')
-    except KeyError:   
-        print('Індекс')
-catch()
+new_file = open('new_file', 'w+')
+print('NEW')
+new_file.write('abcdefg')
+print(f'Cursor: Symbol #{new_file.tell()}')
+new_file.write('\nabcdefg')
+print(f'Cursor: Symbol #{new_file.tell()}')
+new_file.seek(1)
+new_file.write('456')
+print(f'Cursor: Symbol after write #{new_file.tell()}')
+print(new_file.read(3))
+print(f'Cursor: Symbol after read #{new_file.tell()}')
+new_file.write('456')
+print(f'Cursor: Symbol after write #{new_file.tell()}')
+new_file.close()
