@@ -1,7 +1,24 @@
 import json
+        
+def new_contact(first_name, last_name, full_name, number, city):
+    user_info = {"phonebook": "name",
+    "first_name": first_name,
+    "last_name": last_name,
+    "full_name": full_name,
+    "number": number,
+    "city": city
+}
+    try:
+        phonebook = json.load(open('phonebook.json'))
+    except:
+        phonebook = []
 
-json_phonebook = open('phonebook.json', 'r')
-phonebook = json.load(json_phonebook)
+    phonebook.append(user_info)
+
+    with open('phonebook.json', 'w') as filee:
+        json.dump(phonebook, filee, indent=4, ensure_ascii=False)
+    return print('Ok')
+
 
 
 print('''
@@ -12,13 +29,25 @@ print('''
     Пошук за номером телефону________________(5)
     Пошук по місту___________________________(6)
     Видаліть запис для номера телефону_______(7)
-    Оновіть запис на даний номер телефону____(8)
+    Оновіть запис для номеру телефону________(8)
     Вийти з програми_________________________(q)\n''')
 
 while True:
-    operator = input('Виберіть операцію: ')
+    operator = input('Введіть операцію: ')
+    try:
+        phonebook = json.load(open('phonebook.json'))
+    except:
+        print('Телефонна книга незнайдена!')
+        break
+
     if operator == '1':
-        print('не є числом.')
+        first_name = input('Введіть ім\'я: ').capitalize()
+        last_name = input('Введіть Прізвище: ').capitalize()
+        full_name = (f'{first_name} {last_name}')
+        number = input('Введіть номер тел: ')
+        city = input('Введіть місто: ').capitalize()
+
+        new_contact(first_name, last_name, full_name, number, city)
         
 
     elif operator == '2':
@@ -42,7 +71,7 @@ while True:
     elif operator == '5':
         query = input('Введіть номер телефону: ')
         for item in phonebook:
-            if query in item['number']:
+            if query == item['number']:
                 print(item)
                 continue
     elif operator == '6':
@@ -55,12 +84,38 @@ while True:
        
 
     elif operator == '7':
-        item = input('Введіть прізвище: ')
-        for item in phonebook_json:
-            if query == item['last_name']:
-                print(item)
-                continue       
+        query = input('Введіть номер телефону: ')
+     
+        for item in range(len(phonebook)):
+            if(phonebook[item]["number"] == query):
+                del phonebook[item]
+                break
+        with open('phonebook.json', 'w') as filee:
+            json.dump(phonebook, filee, indent=4, ensure_ascii=False)
+        print('Ok')
+
+    elif operator == '8':
+        query = input('Введіть номер телефону: ')
+        for item in phonebook:
+            if query == item['number']:
+                print('Ви дійсно бажаєте оновити дані?')
+                question = input('''
+                Так - 1
+                Ні - 2 \n''')
+                if question == '1':
+                    phonebook.remove(item)
+                    first_name = input('Введіть ім\'я: ').capitalize()
+                    last_name = input('Введіть Прізвище: ').capitalize()
+                    full_name = (f'{first_name} {last_name}')
+                    number = query
+                    city = input('Введіть місто: ').capitalize()
+
+                    new_contact(first_name, last_name, full_name, number, city)
+                else:    
+                    continue    
+       
 
     elif operator == 'exit' or operator == 'q':
         print('До побачення!')
-        break        
+        break
+       
