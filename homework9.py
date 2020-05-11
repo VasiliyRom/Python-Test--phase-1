@@ -32,8 +32,11 @@ if len(sys.argv) < 2:
     exit()
 filename = sys.argv[1]
 json_file = open(filename)
-
-
+try:
+    phonebook = json.load(json_file)
+except json.decoder.JSONDecodeError:
+    print('Невдається прочитати JSON файл!')
+json_file.close()
 
 
 def new_contact(first_name, last_name, full_name, number, city):
@@ -72,14 +75,16 @@ def search_con(query, arg, phonebook):
             print('Запису неіснує!')
 
 
-print('''
+
+
+while True:
+    print('''
     Додати запис_____________________________(1)
     Пошук____________________________________(2)
     Видаліть запис для номера телефону_______(3)
     Оновіть запис для номеру телефону________(4)
     Вийти з програми_________________________(exit, q)\n''')
 
-while True:
     operator = input('Головне меню: ').strip().lower()
     try:
         phonebook = json.load(open('phonebook.json'))
@@ -179,6 +184,8 @@ while True:
     elif operator == 'exit' or operator == 'q':
         print('До побачення!')
         break
+
+      
 
       
 
