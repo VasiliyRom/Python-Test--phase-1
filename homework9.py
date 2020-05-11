@@ -18,6 +18,11 @@ my_file.close()
 
 # Task 2
 
+# Ссилка на таск 2 окремо
+
+# https://github.com/VasiliyRom/Python-Beetroot-Academy/blob/master/1234.py
+
+
 import json
 import sys
 
