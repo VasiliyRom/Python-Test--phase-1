@@ -28,7 +28,7 @@ func_text = print(f'''\n{name}, калькулятор може виконува
       
         
 while True:
-    mess = input()
+    mess = input().lower()
     
     
     mess = repl(mess)
@@ -36,7 +36,7 @@ while True:
         mess = mess[1:]
         minus_left = 1
     
-    if mess == 'exit' or mess == 'Exit' or mess == 'EXIT' or mess == 'q':
+    if mess == 'exit' or mess == 'q':
         print(f'Допобачення, {name}!')
         break  
         
