@@ -57,13 +57,13 @@ class TVController():
         print(self.chan)
 
     def is_exist(self, name):
-        if name.isalpha():
+        if type(name) == str:
             if name in channels:
                 print('ТАК')
             else:
                 print('НІ')
     
-        elif name.isdigit():
+        elif type(name) == int:
             if len(channels) >= name:
                 print('ТАК')
             else:
