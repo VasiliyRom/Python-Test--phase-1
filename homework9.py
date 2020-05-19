@@ -36,6 +36,7 @@ try:
     phonebook = json.load(json_file)
 except json.decoder.JSONDecodeError:
     print('Невдається прочитати JSON файл!')
+    phonebook = []
 json_file.close()
 
 
@@ -77,12 +78,7 @@ try:
         Вийти з програми_________________________(exit, q)\n''')
 
         operator = input('Головне меню: ').strip().lower()
-        try:
-            phonebook = json.load(open('phonebook.json'))
             
-        except:
-            phonebook = []
-        
         if operator == '1':
             first_name = input('Введіть ім\'я: ').strip().capitalize()
             last_name = input('Введіть Прізвище: ').strip().capitalize()
