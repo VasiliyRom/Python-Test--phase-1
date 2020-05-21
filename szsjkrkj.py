@@ -1,39 +1,24 @@
-import json
+class TVController():
+    channels = ["BBC", "Discovery", "TV1000"]
+    def __init__(self):
+        self.channel_num = 1
 
-def new_contact(first_name, last_name, full_name, number, city):
-    user_info = {"phonebook": "name",
-    "first_name": first_name,
-    "last_name": last_name,
-    "full_name": full_name,
-    "number": number,
-    "city": city
-}
-    try:
-        phonebook = json.load(open('phonebook.json'))
-    except:
-        phonebook = []
+    def get_current_channel(self):
+        return self.channels[self.channel_num - 1]
+    
+    def turn_channel(self, index):
+        self.channel_num = index % len(self.channels)
+        print(self.get_current_channel())
 
-    phonebook.append(user_info)
 
-    with open('phonebook.json', 'w') as filee:
-        json.dump(phonebook, filee, indent=4, ensure_ascii=False)
-    return print('Ok')
+    def next_channel(self):
+        if self.channel_num >= len(self.channels):
+            self.channel_num = 1
+        else:
+            self.channel_num += 1
+        print(self.get_current_channel())
 
-json_phonebook = open('phonebook.json', 'r')
-phonebook = json.load(json_phonebook)
+controller = TVController()
 
-query = 'dima'
-for item in phonebook:
-    if query in item['first_name']:
-        print(item)
-    if query in item['last_name']:
-        print(item)
-    if query in item['full_name']:
-        print(item)
-    if query in item['number']:
-        print(item)
-    if query in item['city']:
-        print(item)   
-    break
-
-            
+controller.turn_channel(4)
+controller.next_channel()

@@ -12,6 +12,7 @@ class Person():
 greeting = Person('Vasiliy', 'Romaniuk', '27')
 greeting.talk()
 
+
 #Task2
 class Dog():
     age_factor = 7
@@ -24,47 +25,55 @@ class Dog():
 dog = Dog(int(input('Введіть вік: ')))
 dog.human_age()
 
-#Task3
-channels = ["BBC", "Discovery", "TV1000"]
 
+#Task3
 class TVController():
 
+    channels = ["BBC", "Discovery", "TV1000"]
+    
+    def __init__(self):
+        self.channel_num = 1
+
+    def get_current_channel(self):
+        return self.channels[self.channel_num - 1]
+
     def first_channel(self):
-        print(channels[0])
+        print(self.get_current_channel())
         
     def last_channel(self):
-        print(channels[-1])
+        self.channel_num = len(self.channels)
+        print(self.get_current_channel())
 
-    def turn_channel(self, N):
-        self.N = N
-        print(channels[N - 1])
-        
+    def turn_channel(self, index):
+        self.channel_num = index % len(self.channels)
+        print(self.get_current_channel())
+
     def next_channel(self):
-        if self.N == 3:
-            print(channels[0])
+        if self.channel_num >= len(self.channels):
+            self.channel_num = 1
         else:
-            print(channels[self.N])
+            self.channel_num += 1
+        print(self.get_current_channel())
 
     def previous_channel(self):
-        if self.N == 1:
-            self.chan = channels[0]
-            print(channels[0])
+        if self.channel_num >= len(self.channels):
+            self.channel_num = 1
         else:
-            self.chan = channels[self.N - 1]
-            print(channels[self.N - 1])
-        
+            self.channel_num -= 1
+        print(self.get_current_channel())
+
     def current_channel(self):
-        print(self.chan)
+        print(self.get_current_channel())
 
     def is_exist(self, name):
         if type(name) == str:
-            if name in channels:
+            if name in self.channels:
                 print('ТАК')
             else:
                 print('НІ')
     
         elif type(name) == int:
-            if len(channels) >= name:
+            if len(self.channels) >= name:
                 print('ТАК')
             else:
                 print('НІ')
@@ -77,6 +86,5 @@ controller.turn_channel(1)
 controller.next_channel()
 controller.previous_channel()
 controller.current_channel()
+controller.is_exist(4)
 controller.is_exist("BBC")
-controller.is_exist(3)
-
