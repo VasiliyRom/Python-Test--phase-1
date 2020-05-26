@@ -1,63 +1,93 @@
-
-
-class TVController():
-
-    channels = ["BBC", "Discovery", "TV1000"]
+class Product:
     
-    def __init__(self):
-        self.channel_num = 1
+    prod_type = ""
+    name = ""
+    price = 0
 
-    def get_current_channel(self):
-        return self.channels[self.channel_num - 1]
-
-    def first_channel(self):
-        print(self.get_current_channel())
+    def __init__(self, prod_type, name, price):
+        if type(price) != str:
+            self.prod_type = prod_type
+        else:
+            raise TypeError('Prod_typeError')
         
-    def last_channel(self):
-        self.channel_num = len(self.channels)
-        print(self.get_current_channel())
-
-    def turn_channel(self, index):
-        self.channel_num = index % len(self.channels)
-        print(self.get_current_channel())
-
-    def next_channel(self):
-        if self.channel_num >= len(self.channels):
-            self.channel_num = 1
+        if type(price) != str:
+            self.name = name
         else:
-            self.channel_num += 1
-        print(self.get_current_channel())
+            raise TypeError('NameError')
 
-    def previous_channel(self):
-        if self.channel_num >= len(self.channels):
-            self.channel_num = 1
+        if type(price) != int or type(price) != float and price > 0:
+            self.price = price
         else:
-            self.channel_num -= 1
-        print(self.get_current_channel())
+            raise TypeError('PriceError')
 
-    def current_channel(self):
-        print(self.get_current_channel())
+    def __str__(self):
+       return f'{self.name} = {self.price}'
 
-    def is_exist(self, name):
-        if type(name) == str:
-            if name in self.channels:
-                print('ТАК')
-            else:
-                print('НІ')
+    def __repr__(self):
+       return f'{self.name} = {self.price}'
+
+
+class ProductStore:
     
-        elif type(name) == int:
-            if len(self.channels) >= name:
-                print('ТАК')
-            else:
-                print('НІ')
+    prod_store = []
+    amount = 0
+    profit = 0
 
-controller = TVController()
+    def add(self, product, amount):
+        prod = {}
+        prod["product"] = product
+        prod["amount"] = amount
+        product.price *= 1.3
+        self.prod_store.append(prod)
 
-controller.first_channel()
-controller.last_channel()
-controller.turn_channel(1)
-controller.next_channel()
-controller.previous_channel()
-controller.current_channel()
-controller.is_exist(4)
-controller.is_exist("BBC")
+    def set_discount(self, identifier, percent):
+        if type(percent) == int or type(percent) == float:
+            for i in self.prod_store:
+                if i["product"].prod_type == identifier or i["product"].name == identifier:
+                    i["product"].price = i["product"].price * (1 - (percent / 100))
+        else:
+            raise Exception("Відсотки мають бути числом")
+        
+    def sell_product(self, product_name, amount):
+        for i in self.prod_store:
+            if i['product'].name == product_name:
+                try:
+                    if amount <= i['amount']:
+                        i['amount'] -= amount
+                        self.profit = amount * i['product'].price
+                    else:
+                        raise Exception('Невистачає товару!')
+
+                except Exception as e:
+                    print(e)
+
+    def get_income(self):
+        print(f"{self.profit} UAH")
+
+    def get_all_products(self):
+        print(self.prod_store)
+
+    def get_product_info(self, product_name):
+        for i in self.prod_store:
+            if i['product'].name == product_name:
+                print(product_name, i['amount'])
+
+
+try:
+    p = Product('Sport', 'Football T-Shirt', 100)
+    p2 = Product('Food', 'Ramen', 1.5)
+
+    s = ProductStore()
+
+    s.add(p, 10)
+    s.add(p2, 300)
+    s.add(p, 100000)
+    s.sell_product('Ramen', 10)
+    s.get_income()
+    s.get_all_products()
+    s.get_product_info('Ramen')
+    s.set_discount('Ramen', 10)
+    s.get_all_products()
+
+except ValueError as e:
+    print(e)
