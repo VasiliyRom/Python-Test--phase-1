@@ -51,7 +51,7 @@ class Iter:
         self.index += 1
         return value
 
-i = Iter(1, 2, 3, 4, 5)
+x = Iter(1, 2, 3, 4, 5)
 
-for i in i:
+for i in x:
     print(i)
