@@ -54,7 +54,7 @@ try:
         Оновіть запис для номеру телефону________(4)
         Вийти з програми_________________________(exit, q)\n''')
 
-        operator = input('Головне меню: ').strip().lower()
+        operator: str = input('Головне меню: ').strip().lower()
         try:
             phonebook = json.load(open('phonebook.json'))
             
