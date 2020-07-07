@@ -1,8 +1,6 @@
 import json
 import sys
 from typing import Union, Tuple, List, Dict, Iterable, Iterator, Any, Optional
-
-
 '''print(sys.argv)
 if len(sys.argv) < 2:
     print('Будь ласка виберіть json файл')
@@ -14,22 +12,37 @@ try:
 except json.decoder.JSONDecodeError:
     print('Невдається прочитати JSON файл!')
     phonebook = []
-json_file.close()'''
+json_file.close() '''
+
+json_file = open('phonebook.json')
+try:
+    phonebook = json.load(json_file)
+except json.decoder.JSONDecodeError:
+    print('Невдається прочитати JSON файл!')
+    phonebook = []
+json_file.close()
 
 
-def new_contact(first_name: str, last_name: str, full_name: str, number: str, city: str):
-    user_info = {"first_name": first_name,
-    "last_name": last_name,
-    "full_name": full_name,
-    "number": number,
-    "city": city
-}
+def new_contact(first_name: str, last_name: str, number: str,
+                city: str) -> Dict[str, str]:
+    user_info = {
+        "first_name": first_name,
+        "last_name": last_name,
+        "full_name": first_name + " " + last_name,
+        "number": number,
+        "city": city
+    }
+
+    app(user_info, phonebook)
+    return user_info
+
+
+def app(user_info, phonebook):
     phonebook.append(user_info)
 
 
 def remove(item):
     phonebook.remove(item)
-
 
 
 def search_con(query: str, arg, phonebook) -> None:
@@ -42,7 +55,7 @@ def search_con(query: str, arg, phonebook) -> None:
             print('Місто: ' + str(item['city'] + '\n'))
         else:
             print('Запису неіснує!')
-
+    return item
 
 
 try:
@@ -55,16 +68,10 @@ try:
         Вийти з програми_________________________(exit, q)\n''')
 
         operator: str = input('Головне меню: ').strip().lower()
-        try:
-            phonebook = json.load(open('phonebook.json'))
-            
-        except:
-            phonebook = []
-        
+
         if operator == '1':
             first_name: str = input('Введіть ім\'я: ').strip().capitalize()
             last_name: str = input('Введіть Прізвище: ').strip().capitalize()
-            full_name: str = (f'{first_name} {last_name}')
             number_alp: str = input('Введіть номер тел: ').strip()
             while True:
                 if number_alp.isdigit():
@@ -73,11 +80,10 @@ try:
                 else:
                     print('Номер має містити тільки цифри!')
                     number_alp = input('Введіть номер тел: ').strip()
-                    
+
             city: str = input('Введіть місто: ').strip().capitalize()
-            
-            new_contact(first_name, last_name, full_name, number, city)
-            
+
+            new_contact(first_name, last_name, number, city)
 
         elif operator == '2':
             print('''Пошук за імені___________________________(1)
@@ -90,8 +96,8 @@ try:
             if search == '1':
                 query: str = input('Введіть ім\'я: ').strip().capitalize()
                 atr = 'first_name'
-                search_con(query, atr, phonebook) 
-                
+                search_con(query, atr, phonebook)
+
             elif search == '2':
                 query = input('Введіть прізвище: ').strip().capitalize()
                 atr = 'last_name'
@@ -126,8 +132,7 @@ try:
                         break
                 else:
                     print('Номеру телефону неіснує!')
-                    break    
-            
+                    break
 
         elif operator == '4':
             query = input('Введіть номер телефону: ').strip()
@@ -137,18 +142,19 @@ try:
     Так - 1
     Ні - 2 \n''')
                     question = input('Ваш вибір: ')
-                    if question == '1': 
-                        first_name = input('Введіть ім\'я: ').strip().capitalize()
-                        last_name = input('Введіть Прізвище: ').strip().capitalize()
+                    if question == '1':
+                        first_name = input(
+                            'Введіть ім\'я: ').strip().capitalize()
+                        last_name = input(
+                            'Введіть Прізвище: ').strip().capitalize()
                         full_name = (f'{first_name} {last_name}')
                         number = query.strip()
                         city = input('Введіть місто: ').strip().capitalize()
-                        new_contact(first_name, last_name, full_name, number, city)
+                        new_contact(first_name, last_name, number, city)
                         remove(item)
                 else:
-                    print('Номеру телефону неіснує!')    
-                    break    
-        
+                    print('Номеру телефону неіснує!')
+                    break
 
         elif operator == 'exit' or operator == 'q':
             print('До побачення!')

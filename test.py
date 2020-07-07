@@ -1,93 +1,144 @@
-class Product:
-    
-    prod_type = ""
-    name = ""
-    price = 0
-
-    def __init__(self, prod_type, name, price):
-        if type(price) != str:
-            self.prod_type = prod_type
-        else:
-            raise TypeError('Prod_typeError')
-        
-        if type(price) != str:
-            self.name = name
-        else:
-            raise TypeError('NameError')
-
-        if type(price) != int or type(price) != float and price > 0:
-            self.price = price
-        else:
-            raise TypeError('PriceError')
-
-    def __str__(self):
-       return f'{self.name} = {self.price}'
-
-    def __repr__(self):
-       return f'{self.name} = {self.price}'
+def vidsotok(self, text):
+        try:
+            first_arg = self.editArea.text().split('%')[0]
+            if self.oper == '+' or self.oper == '-':
+                resalt = first_arg.split(self.oper)
+                #print(self.editArea.text()[:-1])
+                self.editArea.setText(
+                    str(float(resalt[0]) / 100 * float(resalt[1])))
+            else:
+                self.editArea.setText('Error')
+        except:
+            self.editArea.setText('Error')
 
 
-class ProductStore:
-    
-    prod_store = []
-    amount = 0
-    profit = 0
 
-    def add(self, product, amount):
-        prod = {}
-        prod["product"] = product
-        prod["amount"] = amount
-        product.price *= 1.3
-        self.prod_store.append(prod)
+arg = self.formula.split('%')[0]
+            resalt = arg.split(self.oper)
+            if self.oper == '+':
+                self.formula = str(float(resalt[0]) + (float(resalt[0]) / 100 * float(resalt[1])))
+            elif self.oper == '-':
+                self.formula = str(float(resalt[0]) - (float(resalt[0]) / 100 * float(resalt[1])))
 
-    def set_discount(self, identifier, percent):
-        if type(percent) == int or type(percent) == float:
-            for i in self.prod_store:
-                if i["product"].prod_type == identifier or i["product"].name == identifier:
-                    i["product"].price = i["product"].price * (1 - (percent / 100))
-        else:
-            raise Exception("Відсотки мають бути числом")
-        
-    def sell_product(self, product_name, amount):
-        for i in self.prod_store:
-            if i['product'].name == product_name:
-                try:
-                    if amount <= i['amount']:
-                        i['amount'] -= amount
-                        self.profit = amount * i['product'].price
-                    else:
-                        raise Exception('Невистачає товару!')
-
-                except Exception as e:
-                    print(e)
-
-    def get_income(self):
-        print(f"{self.profit} UAH")
-
-    def get_all_products(self):
-        print(self.prod_store)
-
-    def get_product_info(self, product_name):
-        for i in self.prod_store:
-            if i['product'].name == product_name:
-                print(product_name, i['amount'])
+            self.update()
+            self.label_3.setText(self.formula)
+            self.formula = '0'
 
 
-try:
-    p = Product('Sport', 'Football T-Shirt', 100)
-    p2 = Product('Food', 'Ramen', 1.5)
+    def add_oper(self, inst):
+        self.oper = str(inst)
 
-    s = ProductStore()
+    def calc(self):
+        try:
+            print('++++++++')
+            print(self.editArea.text()[:-1])
+            value = self.editArea.text()[:-1]
+            spl = value.split(self.oper)
+            if self.oper == '+':
+                if spl[0] == float or spl[0] == float:
+                    resalt = float(spl[0]) + float(spl[1])
+                else:
+                    resalt = int(spl[0]) + int(spl[1])
+            elif self.oper == '-':
+                if spl[0] == float or spl[0] == float:
+                    resalt = float(spl[0]) - float(spl[1])
+                else:
+                    resalt = int(spl[0]) - int(spl[1])
+            elif self.oper == '*':
+                if spl[0] == float or spl[0] == float:
+                    resalt = float(spl[0]) * float(spl[1])
+                else:
+                    resalt = int(spl[0]) * int(spl[1])
+            elif self.oper == '/':
+                if spl[0] == float or spl[0] == float:
+                    resalt = float(spl[0]) / float(spl[1])
+                else:
+                    resalt = int(spl[0]) / int(spl[1])
 
-    s.add(p, 10)
-    s.add(p2, 300)
-    s.add(p, 100000)
-    s.sell_product('Ramen', 10)
-    s.get_income()
-    s.get_all_products()
-    s.get_product_info('Ramen')
-    s.set_discount('Ramen', 10)
-    s.get_all_products()
+            self.editArea.setText(self.editArea.text() + str(resalt))
+            print('------')
+            #self.button.text = '0'  #обнуление, но не работает
+        except:
+            self.editArea.setText('Error')
 
-except ValueError as e:
-    print(e)
+    def step(self, text):
+        try:
+            if self.editArea.text() == '0' and text == 'x^2':
+                self.editArea.setText('0')
+            else:
+                resalt = self.editArea.text()[:-3]
+                self.editArea.setText(resalt + '^2=')
+                self.editArea.setText(self.editArea.text() +
+                                      str(float(resalt) * float(resalt)))
+        except:
+            self.editArea.setText('Error')
+
+
+
+
+
+
+
+    def maynes(self, text):
+        try:
+            if self.editArea.text() == '0' and text == '+/-':
+                self.editArea.setText('0')
+                print('\\\\\\\\')
+            elif '=' not in self.editArea.text():
+                if self.editArea.text()[0] == '-':
+                    self.editArea.setText(self.editArea.text()[1:-3])
+                else:
+                    self.editArea.setText('-' + self.editArea.text()[:-3])
+            elif '=' in self.editArea.text():
+                self.editArea.setText(self.editArea.text()[:-3])
+                spl = self.editArea.text().split('=')
+                first_arg = spl[0]
+                second_arg = spl[1]
+                if second_arg[0] == '-':
+                    print(spl[1])
+                    self.editArea.setText(spl[0] + '=' + spl[1][1:])
+                    print(self.editArea.text())
+                else:
+                    self.editArea.setText(spl[0] + '=' + '-' + spl[1])
+                    print(self.editArea.text())
+        except:
+            self.editArea.setText('Error')
+
+    def change_text(self, text):
+        try:
+            print(self.editArea.text())
+            if self.editArea.text() == 'Error':
+                self.editArea.setText(text)
+            elif self.editArea.text() == '0' and text == '%':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text == '=':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text == '+/-':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text == 'x^2':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text == '+':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text == '-':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text == '*':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text == '/':
+                self.editArea.setText('0')
+            elif self.editArea.text() == '0' and text != '.':
+                self.editArea.setText(text)
+            elif self.editArea.text() == '0' and text == '.':
+                self.editArea.setText(self.editArea.text() + text)
+            elif self.editArea.text() != '0':
+                self.editArea.setText(self.editArea.text() + text)
+        except:
+            self.editArea.setText('Error')
+
+
+
+
+    def c_del(self):
+        try:
+            self.editArea.setText('0')
+        except:
+            self.editArea.setText('Error')

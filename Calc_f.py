@@ -19,6 +19,7 @@ class MyWindow(QMainWindow):
         #firstLabel.setFixedSize(300, 50)
         self.editArea = QLineEdit('0')
         self.editArea.setReadOnly(True)
+        
 
         #
         f = self.editArea.font()
