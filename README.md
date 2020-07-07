@@ -1,2 +1,0 @@
-# Python-Beetroot-Academy
- 
