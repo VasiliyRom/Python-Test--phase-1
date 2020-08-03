@@ -1,0 +1,37 @@
+import asyncio
+import json
+
+clients = []
+msg = []
+
+class EchoServerProtocol(asyncio.Protocol):
+    def connection_made(self, transport):
+        self.peername = transport.get_extra_info('peername')
+        print(f'З\'єднано з: {self.peername}')
+        self.transport = transport
+        clients.append(transport)
+
+    def data_received(self, data):
+        message = data.decode()
+        print(f'Отримано інфо: {message}')
+
+        print(f'Відправлено: {message}')
+        self.transport.write(data)
+
+    def connection_lost(self, exc):
+        print(f'Закрито сокет для {self.peername}')
+        self.transport.close()
+
+
+async def main():
+    # Get a reference to the event loop as we plan to use
+    # low-level APIs.
+    loop = asyncio.get_event_loop()
+
+    server = await loop.create_server(EchoServerProtocol, '127.0.0.1', 8809)
+
+    async with server:
+        await server.serve_forever()
+
+if __name__ == '__main__':
+    asyncio.run(main())
