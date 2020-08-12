@@ -1,0 +1,35 @@
+import asyncio
+import json
+
+class EchoClientProtocol(asyncio.Protocol):
+    def __init__(self, loop, user):
+        self.user = user
+        self.loop = loop
+
+    def connection_made(self, transport):
+        self.transport = transport
+        self.message = input(f'Меседж: ')
+        print(f'Відправлено: {self.message}')
+        self.send(self.message)
+
+    def data_received(self, data):
+        print(f'Отримано: {data.decode()}')
+
+    def send(self, data):
+        self.transport.write(data.encode())
+
+    def connection_lost(self, exc):
+        print('Сервер закрив зв\'язок')
+        self.loop.stop()
+
+
+def main():
+    loop = asyncio.get_event_loop()
+    #message = 'Hello World!'
+    loop.run_until_complete(loop.create_connection(lambda: EchoClientProtocol(loop, 'client_name'), '127.0.0.1', 8809))
+    loop.run_forever()
+    loop.close()
+
+
+if __name__ == '__main__':
+    main()
