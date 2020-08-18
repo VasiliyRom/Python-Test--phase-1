@@ -63,6 +63,7 @@ async def main():
             await server.serve_forever()
         finally:
             EchoServerProtocol.connection_lost()
+            loop.close()
 
 if __name__ == '__main__':
     asyncio.run(main())
